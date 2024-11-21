@@ -1,0 +1,73 @@
+@startuml
+
+skinparam classAttributeIconSize 0
+
+class User {
+  - userId: int
+  - password: String
+  - email: String
+  - visitHistory: List<int>
+  - movieReviews: List<Review>
+  - favoriteMovies: List<Movie>
+
+  + login(): boolean
+  + findIdPassword(): void
+  + addVisitHistory(int): void
+  + deleteVisitHistory(int): void
+  + addMovieReview(Review): void
+  + deleteMovieReview(Review): void
+  + addFavoriteMovie(Movie): void
+  + deleteFavoriteMovie(Movie): void
+}
+
+class Review {
+  - reviewId: int
+  - content: String
+  - userId: int
+  - movieId: int
+
+  + getReviewDetails(): String
+}
+
+class Movie {
+  - movieId: int
+  - title: String
+  - genreId: int
+  - directorId: int
+  - actorIds: List<int>
+  - synopsis: String
+  - rating: float
+  - popularity: float
+
+  + getDetails(): String
+  + getRelatedMovies(): List<Movie>
+}
+
+class Admin {
+  - adminId: int
+  - password: String
+
+  + deleteUserReview(Review): void
+  + addMovie(Movie): void
+  + deleteMovie(Movie): void
+  + updateMovie(Movie): void
+}
+
+class MovieSearch {
+  + searchByKeyword(keyword: String): List<Movie>
+  + filterByCategory(category: String): List<Movie>
+}
+
+class MovieRecommendation {
+  + recommendMovies(User): List<Movie>
+}
+
+User "1" -- "many" Review
+User "1" -- "many" Movie : favorite
+Movie "1" -- "many" Review
+Admin "1" -- "many" Movie
+Admin "1" -- "many" Review
+MovieSearch -- Movie
+MovieRecommendation -- Movie
+
+@enduml

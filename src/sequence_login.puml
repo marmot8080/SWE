@@ -1,0 +1,21 @@
+@startuml
+
+actor "사용자" as user
+participant "로그인 시스템" as login
+database "계정 정보 DB" as db
+
+user -> login : 아이디, 비밀번호 입력
+activate login
+login -> db : 아이디, 비밀번호 전달
+activate db
+
+db --> login : 로그인 정보 반환
+deactivate db
+
+login --> user : 로그인 성공 시 홈 화면 이동
+alt 로그인 실패
+  login --> user : 로그인 실패 시 재시도 요청
+deactivate login
+end
+
+@enduml
