@@ -1,0 +1,29 @@
+@startuml
+
+actor "사용자" as user
+participant "검색 페이지" as searchPage
+participant "상세 정보 페이지" as detailPage
+database "영화 DB" as db
+
+user -> searchPage : 키워드 입력
+activate searchPage
+searchPage -> db : 키워드 전달
+activate db
+db --> searchPage : 키워드를 포함하는 영화 목록 반환
+deactivate db
+searchPage --> user : 키워드를 포함하는 영화 목록 출력
+deactivate searchPage
+
+user -> searchPage : 영화 선택
+activate searchPage
+searchPage -> detailPage : 상세 정보 페이지 이동
+deactivate searchPage
+activate detailPage
+detailPage -> db : 영화 상세 정보 요청
+activate db
+db --> detailPage : 영화 상세 정보 반환
+deactivate db
+detailPage --> user : 상세 정보 출력
+deactivate detailPage
+
+@enduml
