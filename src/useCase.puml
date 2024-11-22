@@ -1,5 +1,6 @@
 @startuml
 
+left to right direction
 actor "사용자" as user
 actor "관리자" as admin
 
@@ -29,7 +30,7 @@ rectangle "영화 추천 시스템" as MR {
 
 ' 사용자와 연관된 유즈케이스
 user --> UC02
-UC02 ..> UC01
+UC02 ...> UC01
 UC02 <|-- UC03
 UC02 <|-- UC04
 UC02 <|-- UC05
@@ -42,14 +43,14 @@ user --> UC11
 UC11 <|-- UC12
 UC11 <|-- UC13
 UC11 <|-- UC14
-UC11 <|-- UC15
+UC11 <|--UC15
 
 ' 관리자와 연관된 유즈케이스
-admin --> UC16
-UC16 ..> UC01
-UC16 <|-- UC17
-UC16 <|-- UC18
-UC16 <|-- UC19
-UC16 <|-- UC20
+UC16 <-- admin
+UC01 <.. UC16
+UC17 --|> UC16
+UC18 --|> UC16
+UC19 --|> UC16
+UC20 --|> UC16
 
 @enduml
