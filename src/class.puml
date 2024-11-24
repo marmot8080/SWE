@@ -2,72 +2,86 @@
 
 skinparam classAttributeIconSize 0
 
+class Account {
+    - id: String
+    - password: String
+
+    + login(): boolean
+    + findIdPassword(): void
+}
+
 class User {
-  - userId: int
-  - password: String
-  - email: String
-  - visitHistory: List<int>
-  - movieReviews: List<Review>
-  - favoriteMovies: List<Movie>
+    - visitHistory: List<int>
+    - favoriteMovies: List<Movie>
 
-  + login(): boolean
-  + findIdPassword(): void
-  + addVisitHistory(int): void
-  + deleteVisitHistory(int): void
-  + addMovieReview(Review): void
-  + deleteMovieReview(Review): void
-  + addFavoriteMovie(Movie): void
-  + deleteFavoriteMovie(Movie): void
-}
-
-class Review {
-  - reviewId: int
-  - content: String
-  - userId: int
-  - movieId: int
-
-  + getReviewDetails(): String
-}
-
-class Movie {
-  - movieId: int
-  - title: String
-  - genreId: int
-  - directorId: int
-  - actorIds: List<int>
-  - synopsis: String
-  - rating: float
-  - popularity: float
-
-  + getDetails(): String
-  + getRelatedMovies(): List<Movie>
+    + addVisitHistory(int): void
+    + deleteVisitHistory(int): void
+    + addReview(Review): void
+    + deleteMyReview(Review): void
+    + addFavoriteMovie(Movie): void
+    + deleteFavoriteMovie(Movie): void
 }
 
 class Admin {
-  - adminId: int
-  - password: String
+    + addMovie(Movie): void
+    + updateMovie(Movie): void
+    + deleteMovie(Movie): void
+    + deleteUserReview(Review): void
+}
 
-  + deleteUserReview(Review): void
-  + addMovie(Movie): void
-  + deleteMovie(Movie): void
-  + updateMovie(Movie): void
+class Review {
+    - reviewId: int
+    - authorId: int
+    - movieId: int
+    - content: String
+}
+
+class Movie {
+    - movieId: int
+    - title: String
+    - releaseDate: Date
+    - runtime: int
+    - genreIds: List<int>
+    - overview: String
+    - rateAvg: float
+    - rateCount: int
+    - directorId: int
+    - actorIds: List<int>
+    - companyId: int
+    - reviewIds: List<int>
+    - posterPath: String
+    - backdropPath: String
+    - popularity: float
+
+    + getInfo(): json
+    + getDetails(): json
+    + getReviews(Movie): List<Review>
+    + getRelatedMovies(): List<Movie>
 }
 
 class MovieSearch {
-  + searchByKeyword(keyword: String): List<Movie>
-  + filterByCategory(category: String): List<Movie>
+    + searchByKeyword(keyword: String): List<Movie>
 }
 
 class MovieRecommendation {
-  + recommendMovies(User): List<Movie>
+    + getRecentMovies(): List<Movie>
+    + getPopularMovies(): List<Movie>
+    + getMoviesByGenre(genreId: int): List<Movie>
 }
 
-User "1" -- "many" Review
-User "1" -- "many" Movie : favorite
-Movie "1" -- "many" Review
-Admin "1" -- "many" Movie
-Admin "1" -- "many" Review
-MovieSearch -- Movie
-MovieRecommendation -- Movie
+Account ^-- User
+Account ^-- Admin
+
+User --> Movie
+User --> Review
+
+Admin --> Movie
+Admin --> Review
+
+Movie --> Review
+
+MovieSearch --> Movie
+
+MovieRecommendation --> Movie
 
 @enduml

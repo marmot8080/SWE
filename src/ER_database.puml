@@ -1,0 +1,103 @@
+@startchen
+left to right direction
+
+entity "Account" as ACCOUNT {
+  "id" as ID <<key>>
+  "password" as Password
+  "created_at" as CreatedAt
+  "last_login_at" as LastLogin
+  "status" as Status
+  "type" as Type
+}
+
+entity "User" as USER {
+  "user_id" as UserID <<key>>
+  "records" as Records
+  "favorite_movies" as FavoriteMovies
+}
+
+entity "Admin" as ADMIN {
+  "admin" as AdminID <<key>>
+}
+
+entity "Movie" as MOVIE {
+  "movie_id" as MovieID <<key>>
+  "title" as Title
+  "release_date" as ReleaseDate
+  "runtime" as Runtime
+  "genres" as Genres
+  "overview" as Overview
+  "rate_avg" as RateAvg
+  "rate_count" as RateCount
+  "poster_path" as PosterPath
+  "backdrop_path" as BackdropPath
+  "popularity" as Popularity
+}
+
+entity "Director" as DIRECTOR {
+  "director_id" as DirectorID <<key>>
+  "name" as Name
+  "born_date" as BornDate
+  "image_path" as ImagePath
+}
+
+entity "Actor" as ACTOR {
+  "actor_id" as ActorID <<key>>
+  "name" as Name
+  "born_date" as BornDate
+  "image_path" as ImagePath
+}
+
+entity "Company" as COMPANY {
+  "company_id" as CompanyID <<key>>
+  "name" as Name
+  "image_path" as ImagePath
+}
+
+entity "Review" as REVIEW {
+  "review_id" as ReviewID <<key>>
+  "movie_id" as MovieID <<FK>>
+  "author_id" as AuthorID <<FK>>
+  "content" as Content
+}
+
+ACCOUNT ->- U { USER, ADMIN }
+
+' Relationships
+relationship "favorites" as FAVORITES {
+}
+
+relationship "writes" as WRITES {
+}
+
+relationship "has reviews" as HAS_REVIEWS {
+}
+
+relationship "directed by" as DIRECTED_BY {
+}
+
+relationship "has actors" as HAS_ACTORS {
+}
+
+relationship "produced by" as PRODUCED_BY {
+}
+
+FAVORITES -1- USER
+FAVORITES -N- MOVIE
+
+WRITES -1- USER
+WRITES -N- REVIEW
+
+HAS_REVIEWS -1- MOVIE
+HAS_REVIEWS -N- REVIEW
+
+DIRECTED_BY -1- MOVIE
+DIRECTED_BY -1- DIRECTOR
+
+HAS_ACTORS -1- MOVIE
+HAS_ACTORS -N- ACTOR
+
+PRODUCED_BY -N- MOVIE
+PRODUCED_BY -1- COMPANY
+
+@endchen
