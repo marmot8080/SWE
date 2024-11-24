@@ -1,4 +1,5 @@
 @startchen
+left to right direction
 
 entity "Account" as ACCOUNT {
   "id" as ID <<key>>
