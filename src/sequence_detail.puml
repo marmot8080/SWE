@@ -12,10 +12,8 @@ activate db
 db --> mainPage : 영화 목록 반환
 deactivate db
 mainPage --> user : 영화 목록 출력
-deactivate mainPage
 
 user -> mainPage : 영화 선택
-activate mainPage
 mainPage -> detailPage : 상세 정보 페이지 이동
 deactivate mainPage
 activate detailPage
