@@ -1,0 +1,63 @@
+@startuml
+
+actor "사용자" as user
+participant "시작 페이지" as entryPage
+participant "아이디/비밀번호 찾기 페이지" as findPage
+database "계정정보 DB" as db
+
+user -> entryPage : 아이디/비밀번호 찾기 요청
+activate entryPage
+activate user
+
+entryPage --> user : 아이디/비밀번호 페이지 반환
+deactivate entryPage
+
+user -> findPage : 찾는 대상 선택
+
+alt 찾는 대상 : 아이디
+    activate findPage
+    
+    findPage -> user : 사용자 정보 요청
+    user --> findPage : 사용자 정보 입력
+
+    findPage -> db : 아이디 검색 요청
+    activate db
+    db -> db : 아이디 검색
+
+    alt 검색 성공
+        db --> findPage : 아이디 반환
+        findPage -> user : 아이디 제공
+
+    else 검색 실패
+        db --> findPage : 검색 실패 반환
+        findPage -> user : 검색 결과 실패 알림
+    deactivate db
+    end
+
+else 찾는 대상 : 비밀번호
+       
+    findPage -> user : 사용자 정보 요청
+    user --> findPage : 사용자 정보 입력
+
+    findPage -> db : 유효한 정보 여부 검사 요청
+    activate db
+    db -> db : 사용자 정보 유효성 검사
+    db --> findPage : 검사 결과 반환
+
+    alt 검사 성공
+        findPage -> user : 새로운 비밀번호 입력 요청
+        user --> findPage : 새로운 비밀번호 입력
+        findPage -> db : 비밀번호 업데이트 요청
+        db --> findPage : 업데이트 완료
+        findPage -> user : 업데이트 완료 알림
+
+    else 검사 성공
+        findPage -> user : 검사 결과 실패 알림
+
+    deactivate db
+    end
+end
+
+deactivate user
+
+@enduml
