@@ -1,0 +1,21 @@
+@startuml
+
+actor "사용자" as user
+participant "메인 페이지" as Page
+database "영화 DB" as db
+
+user -> Page : 카테고리 키워드 선택
+activate Page
+
+Page -> db : 카테고리 키워드 전달
+activate db
+db --> Page : 카테고리 키워드에 맞는 영화 목록 반환
+deactivate db
+
+Page -> Page : 표시 영화 목록 업데이트
+Page --> user : 영화 목록 출력
+deactivate Page
+
+deactivate db
+
+@enduml
