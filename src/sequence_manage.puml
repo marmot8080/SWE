@@ -4,14 +4,24 @@ actor "관리자" as admin
 participant "관리자 페이지" as adminPage
 database "영화 DB" as db
 
-admin -> adminPage : 영화 정보 등록
+adminPage -> db : 영화 정보 요청
 activate adminPage
+activate db
+db --> adminPage : 영화 정보 반환
+deactivate db
+adminPage -> admin : 등록된 영화 목록
+
+alt Register Movie Information
+
+admin -> adminPage : 영화 정보 등록
 adminPage -> db : 영화 정보 저장
 activate db
 db --> adminPage : 영화 정보 저장 완료
 deactivate db
 adminPage --> admin : 영화 정보 등록 완료
 deactivate adminPage
+
+else Edit Movie Information
 
 admin -> adminPage : 영화 선택
 activate adminPage
@@ -26,6 +36,8 @@ db --> adminPage : 영화 정보 수정 완료
 adminPage --> admin : 영화 정보 수정 완료
 deactivate adminPage
 
+else Delete Movie Information
+
 admin -> adminPage : 영화 정보 삭제
 activate adminPage
 adminPage -> db : 영화 정보 삭제 요청
@@ -34,5 +46,7 @@ db --> adminPage : 영화 정보 삭제 완료
 deactivate db
 adminPage --> admin : 영화 정보 삭제 완료
 deactivate adminPage
+
+end
 
 @enduml
