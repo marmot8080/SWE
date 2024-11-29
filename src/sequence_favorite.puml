@@ -5,22 +5,39 @@ participant "상세 정보 페이지" as detailPage
 participant "마이 페이지" as myPage
 database "사용자 정보 DB" as db
 
+opt 관심 영화 등록
 user -> detailPage : 관심 영화 등록
 activate detailPage
-detailPage -> db : 관심 영화 저장
+detailPage -> db : 관심 영화 저장 요청
 activate db
 db --> detailPage : 관심 영화 저장 완료
 deactivate db
 detailPage --> user : 관심 영화 등록 완료
 deactivate detailPage
+end
 
-user -> myPage : 관심 영화 삭제 요청
+opt 관심 영화 삭제
+user -> myPage : 마이 페이지 접속
 activate myPage
-myPage -> db : 관심 영화 삭제
+myPage -> db : 관심 영화 목록 요청
+activate db
+db --> myPage : 관심 영화 목록 반환
+deactivate db
+myPage --> user : 관심 영화 목록 출력
+deactivate myPage
+
+user -> myPage : 관심 영화 삭제
+activate myPage
+myPage -> db : 관심 영화 삭제 요청
 activate db
 db --> myPage : 관심 영화 삭제 완료
 deactivate db
-myPage --> user : 관심 영화 삭제 완료
+myPage -> db : 관심 영화 목록 요청
+activate db
+db --> myPage : 관심 영화 목록 반환
+deactivate db
+myPage --> user : 관심 영화 목록 출력
 deactivate myPage
+end
 
 @enduml
