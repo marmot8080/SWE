@@ -1,0 +1,26 @@
+@startuml
+
+actor "관리자" as admin
+participant "관리자 페이지" as adminPage
+database "영화 DB" as db
+
+admin -> adminPage : 영화 선택
+activate adminPage
+adminPage -> db : 리뷰 목록 요청
+activate db
+db --> adminPage : 리뷰 목록 반환
+deactivate db
+adminPage --> admin : 리뷰 목록 출력
+admin -> adminPage : 리뷰 삭제
+adminPage -> db : 리뷰 삭제 요청
+activate db
+db --> adminPage : 리뷰 삭제 완료
+deactivate db
+adminPage -> db : 리뷰 목록 요청
+activate db
+db --> adminPage : 리뷰 목록 반환
+deactivate db
+adminPage --> admin : 리뷰 목록 출력
+deactivate adminPage
+
+@enduml
