@@ -23,7 +23,9 @@ activate db
 db --> adminPage : 영화 정보 반환
 deactivate db
 adminPage --> admin : 영화 정보 출력
+deactivate adminPage
 admin -> adminPage : 영화 정보 수정
+activate adminPage
 adminPage -> db : 영화 정보 수정 요청
 activate db
 db --> adminPage : 영화 정보 수정 완료
