@@ -11,7 +11,7 @@ searchPage -> db : 키워드 전달
 activate db
 db --> searchPage : 키워드를 포함하는 영화 목록 반환
 deactivate db
-searchPage --> user : 키워드를 포함하는 영화 목록 출력
+searchPage --> user : 영화 목록 출력
 deactivate searchPage
 
 user -> searchPage : 영화 선택

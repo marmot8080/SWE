@@ -1,0 +1,22 @@
+@startuml
+actor "사용자" as user
+participant "메인 페이지" as mainPage
+database "영화 DB" as db
+
+user -> mainPage : 접속
+activate mainPage
+mainPage -> db : 인기순 영화 목록 요청
+activate db
+db --> mainPage : 인기순 영화 목록 반환
+deactivate db
+mainPage -> db : 최신순 영화 목록 요청
+activate db
+db --> mainPage : 최신순 영화 목록 반환
+deactivate db
+mainPage -> db : 장르별 영화 목록 요청
+activate db
+db --> mainPage : 장르별 영화 목록 반환
+deactivate db
+mainPage --> user : 영화 목록 출력
+deactivate mainPage
+@enduml

@@ -13,9 +13,10 @@ class Account {
 class User {
     - visitHistory: List<int>
     - favoriteMovies: List<Movie>
+    - myReviews: List<Review>
 
-    + addVisitHistory(int): void
-    + deleteVisitHistory(int): void
+    + addVisitHistory(movieId: int): void
+    + deleteVisitHistory(movieId: int): void
     + addReview(Review): void
     + deleteMyReview(Review): void
     + addFavoriteMovie(Movie): void
@@ -52,11 +53,6 @@ class Movie {
     - posterPath: String
     - backdropPath: String
     - popularity: float
-
-    + getInfo(): json
-    + getDetails(): json
-    + getReviews(Movie): List<Review>
-    + getRelatedMovies(): List<Movie>
 }
 
 class MovieSearch {
@@ -64,9 +60,9 @@ class MovieSearch {
 }
 
 class MovieRecommendation {
-    + getRecentMovies(): List<Movie>
-    + getPopularMovies(): List<Movie>
-    + getMoviesByGenre(genreId: int): List<Movie>
+    - recentMovieList: List<Movie>
+    - popularMovieList: List<Movie>
+    - movieListByGenre: List<Movie>
 }
 
 Account ^-- User
@@ -74,13 +70,17 @@ Account ^-- Admin
 
 User --> Movie
 User --> Review
+User ..> MovieRecommendation
+User ..> MovieSearch
 
-Admin --> Movie
-Admin --> Review
+Admin ..> Movie
+Admin ..> Review
+Admin ..> MovieRecommendation
+Admin ..> MovieSearch
 
-Movie --> Review
+Movie *-- Review
 
-MovieSearch --> Movie
+MovieSearch ..> Movie
 
 MovieRecommendation --> Movie
 
