@@ -3,6 +3,14 @@
 actor "사용자" as user
 participant "로그인 시스템" as login
 database "계정 정보 DB" as db
+participant "아이디/비밀번호 찾기 페이지" as search
+
+opt 아이디/비밀번호 찾기
+user -> login : 아이디/비밀번호 찾기
+activate login
+login -> search : 아이디/비밀번호 찾기 페이지 이동
+deactivate login
+end
 
 user -> login : 아이디, 비밀번호 입력
 activate login
