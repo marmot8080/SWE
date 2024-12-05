@@ -7,7 +7,6 @@ class Account {
     - password: String
 
     + login(): boolean
-    + findIdPassword(): void
 }
 
 class User {
