@@ -3,12 +3,12 @@
 actor "사용자" as user
 participant "상세 정보 페이지" as detailPage
 participant "마이 페이지" as myPage
-database "사용자 정보 DB" as db
+database "관심 영화 DB" as db
 
 opt 관심 영화 등록
 user -> detailPage : 관심 영화 등록
 activate detailPage
-detailPage -> db : 관심 영화 저장 요청
+detailPage -> db : addFavoriteMovie(movieId: int)
 activate db
 db --> detailPage : 관심 영화 저장 완료
 deactivate db
@@ -28,7 +28,7 @@ deactivate myPage
 
 user -> myPage : 관심 영화 삭제
 activate myPage
-myPage -> db : 관심 영화 삭제 요청
+myPage -> db : deleteFavoriteMovie(movieId: int)
 activate db
 db --> myPage : 관심 영화 삭제 완료
 deactivate db

@@ -14,7 +14,7 @@ adminPage --> admin : 리뷰 목록 출력
 deactivate adminPage
 admin -> adminPage : 리뷰 삭제
 activate adminPage
-adminPage -> db : 리뷰 삭제 요청
+adminPage -> db : deleteUserReview(reviewId: int)
 activate db
 db --> adminPage : 리뷰 삭제 완료
 deactivate db

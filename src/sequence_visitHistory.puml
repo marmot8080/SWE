@@ -2,7 +2,7 @@
 
 actor "사용자" as user
 participant "마이 페이지" as myPage
-database "사용자 정보 DB" as db
+database "방문 기록 DB" as db
 
 user -> myPage : 마이 페이지 접속
 activate myPage
@@ -15,7 +15,7 @@ deactivate myPage
 
 user -> myPage : 방문 기록 삭제
 activate myPage
-myPage -> db : 방문 기록 삭제 요청
+myPage -> db : deleteVisitHistory(movieId: int)
 activate db
 db --> myPage : 방문 기록 삭제 완료
 deactivate db

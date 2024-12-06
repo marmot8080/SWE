@@ -3,31 +3,30 @@
 skinparam classAttributeIconSize 0
 
 class Account {
-    - id: String
-    - password: String
+    - id: int
+    - accountType: int
 
-    + login(): boolean
-    + findIdPassword(): void
+    + login(id: String, password: String): boolean
 }
 
 class User {
-    - visitHistory: List<int>
+    - visitHistory: List<Movie>
     - favoriteMovies: List<Movie>
     - myReviews: List<Review>
 
-    + addVisitHistory(movieId: int): void
-    + deleteVisitHistory(movieId: int): void
-    + addReview(Review): void
-    + deleteMyReview(Review): void
-    + addFavoriteMovie(Movie): void
-    + deleteFavoriteMovie(Movie): void
+    + addVisitHistory(movieId: int): boolean
+    + deleteVisitHistory(movieId: int): boolean
+    + addReview(Review): boolean
+    + deleteMyReview(reviewId: int): boolean
+    + addFavoriteMovie(movieId: int): boolean
+    + deleteFavoriteMovie(movieId: int): boolean
 }
 
 class Admin {
-    + addMovie(Movie): void
-    + updateMovie(Movie): void
-    + deleteMovie(Movie): void
-    + deleteUserReview(Review): void
+    + addMovie(Movie): boolean
+    + updateMovie(Movie): boolean
+    + deleteMovie(movieId: int): boolean
+    + deleteUserReview(reviewId: int): boolean
 }
 
 class Review {
