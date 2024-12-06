@@ -7,7 +7,7 @@ database "영화 DB" as db
 
 user -> searchPage : 키워드 입력
 activate searchPage
-searchPage -> db : 키워드 전달
+searchPage -> db : searchByKeyword(keyword: String)
 activate db
 db --> searchPage : 키워드를 포함하는 영화 목록 반환
 deactivate db

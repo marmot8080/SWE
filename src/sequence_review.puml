@@ -16,7 +16,7 @@ deactivate detailPage
 opt 리뷰 등록
 user -> detailPage : 리뷰 입력
 activate detailPage
-detailPage -> db : 리뷰 저장
+detailPage -> db : addReview(Review)
 activate db
 db --> detailPage : 리뷰 저장 완료
 deactivate db
@@ -31,13 +31,13 @@ end
 opt 리뷰 삭제
 user -> detailPage : 리뷰 삭제
 activate detailPage
-detailPage -> db : 리뷰 삭제 요청
+detailPage -> db : deleteMyReview(reviewId: int)
 activate db
 db --> detailPage : 리뷰 삭제 완료
 deactivate db
 detailPage -> db : 리뷰 목록 요청
 activate db
-db --> detailPage : 최신 리뷰 목록 반환
+db --> detailPage : 리뷰 목록 반환
 deactivate db
 detailPage --> user : 리뷰 목록 출력
 deactivate detailPage
