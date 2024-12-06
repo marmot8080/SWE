@@ -6,7 +6,7 @@ class Account {
     - userId: int
     - accountType: int
 
-    + login(): boolean
+    + login(id: String, password: String): boolean
 }
 
 class User {
