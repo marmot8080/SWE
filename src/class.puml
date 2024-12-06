@@ -3,11 +3,10 @@
 skinparam classAttributeIconSize 0
 
 class Account {
-    - id: String
-    - password: String
+    - userId: int
+    - accountType: int
 
     + login(): boolean
-    + findIdPassword(): void
 }
 
 class User {
